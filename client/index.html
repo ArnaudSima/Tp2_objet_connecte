@@ -1,0 +1,96 @@
+<!doctype html>
+<html style="height: 945px;" lang="en">
+<link rel="stylesheet" href="index.css" />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tp_2_Objet_connecte</title>
+</head>
+
+<body>
+  <div class="app-wrapper">
+    <div class="app-panel">
+      <h2>Contrôle d'une porte d'aération d'une serre</h2>
+      <div class="sides-wrapper">
+        <!--Left side-->
+        <div class="left-side">
+          <div class="text-inline">
+            <p>Temperature interne ambiante :</p>
+            <p>30</p>
+            <p>c</p>
+          </div>
+          <div class="text-inline">
+            <p>Intensite lumineuse a l'interne :</p>
+            <p>80</p>
+            <p>(0-100)</p>
+          </div>
+          <div class="text-inline">
+            <p>Ouverture de la porte automatique :</p>
+            <p>20</p>
+            <p>%</p>
+          </div>
+
+          <div class="text-inline">
+            <h3 style="text-decoration: underline; text-decoration-thickness: 4px; margin-right: 5px;">Contrôle :</h3>
+            <button>Automatique</button>
+          </div>
+          <div class="door-controls">
+            <div class="text-inline">
+              <button style="margin-right: 5px;">Manuelle</button>
+              <input style="width:50px;" type="text" value="100" />
+              <p>%</p>
+            </div>
+            <button style="margin-top: 5px;">Ouvrir la porte</button>
+            <button style="margin-top: 5px;">Fermer la porte</button>
+          </div>
+
+          <div class="text-inline" style="margin-top: 10px;">
+            <p>Moteur :</p>
+            <p>En marche | En arrêt</p>
+          </div>
+          <div class="text-inline" style="margin-top: 5px;">
+            <p>Direction :</p>
+            <p>Gauche|Droite</p>
+          </div>
+        </div>
+
+        <!--Right side-->
+        <div class="right-side">
+          <div class="text-inline">
+            <p>Mode :</p>
+            <p>Manuelle | Automatique</p>
+          </div>
+
+          <div
+            style="display: flex; align-items: center; height: max-content; justify-content: center; flex-direction: column;">
+
+            <div id="rectangle-container" class="rectangle">
+            </div>
+            <div style="margin-top: 5px; margin-bottom: 10px;" class="text-inline">
+              <p>Ouverture :</p>
+              <p>100%</p>
+            </div>
+          </div>
+
+          <div style="margin-top: 19px;">
+            <div class="text-inline">
+              <p>Détecteur de distance :</p>
+              <p>22</p>
+              <p>cm</p>
+            </div>
+            <div style="margin-top: 10px;" class="text-inline">
+              <p>Vitesse :</p>
+              <p>20</p>
+              <p>tour/min</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+</body>
+
+</html>
+<script src="index.js"></script>

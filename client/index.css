@@ -1,0 +1,61 @@
+.app-wrapper {
+    height: inherit;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+body {
+    height: inherit;
+    margin: 0px;
+}
+
+.sides-wrapper {
+    display: flex;
+    column-gap: 30px;
+}
+
+.text-inline {
+    margin: 0px;
+    display: flex;
+    align-items: center;
+}
+
+.text-inline>p {
+    margin: 0px;
+}
+
+.app-panel {
+    height: 380px;
+    border: 1px solid black;
+    padding: 10px;
+}
+
+.door-controls {
+    border: 2px solid black;
+    padding: 5px;
+}
+
+.rectangle {
+    border: 3px solid black;
+    height: 145px;
+    width: 100px;
+    display: flex;
+    flex-direction: column;
+}
+.rectangle-gage-unit{
+    background-color: yellow;
+    width: inherit;
+    height: 30px;
+}
+.left-side {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+}
+
+.right-side {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+}
