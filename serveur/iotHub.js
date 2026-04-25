@@ -1,0 +1,48 @@
+import iotHub from "azure-iothub";
+import iotDevice from "azure-iot-device-amqp";
+import { Message } from "azure-iothub/dist/common-core/message.js";
+import { WebSocketServer } from "ws";
+
+console.log("Connecting to iot...");
+const iotHubRegistry = iotHub.Registry.fromConnectionString(
+  process.env.AZURE_IOT_HUB_REGISTRY_CONNECTION_STRING,
+);
+const iotHubClient = iotHub.Client.fromConnectionString(
+  process.env.AZURE_IOT_HUB_CLIENT_CONNECTION_STRING,
+);
+
+const wss = new WebSocketServer({ port: 3001 });
+console.log("Web socket listening on port 3031");
+
+const webClientIotDevice = iotDevice.clientFromConnectionString(
+  process.env.WEB_CLIENT_IOT_DEVICE_CONNECTION_STRING,
+);
+
+await webClientIotDevice.open();
+
+console.log("Web socket listening on port 3031");
+
+webClientIotDevice.on("message", (msg) => {
+  const data = msg.data.toString();
+  webClientIotDevice.complete(msg);
+  wss.clients.forEach((ws) => ws.send(data));
+});
+
+export function listDevices(callback) {
+  iotHubRegistry.list(callback);
+}
+
+export function registerDevice(deviceId, callback) {
+  iotHubRegistry.create({ deviceId }, callback);
+}
+
+export function sendMessage(deviceId, message, callback) {
+  const msg = new Message(message);
+  iotHubClient.send(deviceId, msg, callback);
+}
+
+export function deleteDevice(deviceId, callback) {
+  iotHubRegistry.delete(deviceId, (err) => {
+    callback(err, { deleted: deviceId });
+  });
+}

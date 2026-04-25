@@ -2,6 +2,7 @@
   "name": "serveur",
   "version": "1.0.0",
   "main": "main.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -12,8 +13,13 @@
   "dependencies": {
     "@azure/cosmos": "^4.9.2",
     "azure-cosmos": "^0.0.1-security.3",
+    "azure-iot-device": "^1.18.4",
+    "azure-iot-device-amqp": "^1.14.4",
+    "azure-iot-device-mqtt": "^1.16.4",
+    "azure-iothub": "^1.16.6",
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",
+    "env": "^0.0.2",
     "express": "^5.2.1"
   }
 }
