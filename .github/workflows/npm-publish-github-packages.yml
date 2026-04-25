@@ -1,0 +1,35 @@
+# .github/workflows/deploy.yml
+name: Deploy Backend
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone le repo
+        uses: actions/checkout@v3
+
+      - name: Login Azure Container Registry
+        uses: azure/docker-login@v1
+        with:
+          login-server: monRegistry.azurecr.io
+          username: ${{ secrets.ACR_USERNAME }}
+          password: ${{ secrets.ACR_PASSWORD }}
+
+      - name: Build & Push
+        run: |
+          docker build -f backend/Dockerfile ./backend \
+            -t monRegistry.azurecr.io/backend:latest
+          docker push monRegistry.azurecr.io/backend:latest
+
+      - name: Deploy sur Container Apps
+        uses: azure/CLI@v1
+        with:
+          inlineScript: |
+            az containerapp update \
+              --name mon-backend \
+              --resource-group monRG \
+              --image monRegistry.azurecr.io/backend:latest
