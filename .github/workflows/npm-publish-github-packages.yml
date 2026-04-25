@@ -2,8 +2,8 @@
 name: Deploy Backend
 
 on:
-  push:
-    branches: [main]
+  # push:
+  #   branches: [main]
 
 jobs:
   deploy:
@@ -30,6 +30,6 @@ jobs:
         with:
           inlineScript: |
             az containerapp update \
-              --name mon-backend \
+              --name TP2_objet_connecte \
               --resource-group monRG \
               --image monRegistry.azurecr.io/backend:latest
