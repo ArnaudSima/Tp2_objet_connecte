@@ -15,15 +15,15 @@ jobs:
       - name: Login Azure Container Registry
         uses: azure/docker-login@v1
         with:
-          login-server: rasberryRegistre.azurecr.io
+          login-server: rasberryregistre.azurecr.io
           username: ${{ secrets.REGISTRYUSERNAME }}
           password: ${{ secrets.REGISTRYPASSWORD }}
 
       - name: Build & Push
         run: |
           docker build -f serveur/Dockerfile ./serveur \
-            -t rasberryRegistre.azurecr.io/serveur:latest
-          docker push rasberryRegistre.azurecr.io/serveur:latest
+            -t rasberryregistre.azurecr.io/serveur:latest
+          docker push rasberryregistre.azurecr.io/serveur:latest
 
       # - name: Deploy sur Container Apps
       #   uses: azure/CLI@v1
