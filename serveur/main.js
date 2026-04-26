@@ -14,10 +14,12 @@ app.use(express.json());
 
 //CosmoDB
 const cosmoDBEndpoint = "https://2267339.documents.azure.com/";
+console.log("Connecting to cosmodb...");
 const client = new CosmosClient({
   endpoint: cosmoDBEndpoint,
-  key: process.env.COSMO_DB_KEY,
+  key: process.env.COSMODBKEY,
 });
+console.log("Connected to cosmo db");
 const databaseName = "tp_final_object_connecte_db";
 const inputContainerName = "inputs";
 const doorCommandsContainerName = "door-commands";

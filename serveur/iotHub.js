@@ -5,19 +5,19 @@ import { WebSocketServer } from "ws";
 
 console.log("Connecting to iot...");
 const iotHubRegistry = iotHub.Registry.fromConnectionString(
-  process.env.AZURE_IOT_HUB_REGISTRY_CONNECTION_STRING,
+  process.env.IOTHUBCONNECTIONSTRING,
 );
 const iotHubClient = iotHub.Client.fromConnectionString(
-  process.env.AZURE_IOT_HUB_CLIENT_CONNECTION_STRING,
+  process.env.IOTHUBCONNECTIONSTRING,
 );
 
 const wss = new WebSocketServer({ port: 3001 });
 console.log("Web socket listening on port 3031");
 
 const webClientIotDevice = iotDevice.clientFromConnectionString(
-  process.env.WEB_CLIENT_IOT_DEVICE_CONNECTION_STRING,
+  process.env.IOTHUBWEBCLIENTCONNECTIONSTRING,
 );
-
+console.log("Connected to iot hub");
 await webClientIotDevice.open();
 
 console.log("Web socket listening on port 3031");
