@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Clone le repo 
-        uses: actions/checkout@v3 
+        uses: actions/checkout@v3  
 
       - name: Login Azure Container Registry
         uses: azure/docker-login@v1
