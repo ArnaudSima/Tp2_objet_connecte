@@ -5,19 +5,19 @@ import { WebSocketServer } from "ws";
 
 console.log("Connecting to iot...");
 console.log("test")
-console.log(process.env.IOTHUBCONNECTIONSTRING);
+console.log(process.env.iothubconnectionstring);
 const iotHubRegistry = iotHub.Registry.fromConnectionString(
-  process.env.IOTHUBCONNECTIONSTRING,
+  process.env.iothubconnectionstring,
 );
 const iotHubClient = iotHub.Client.fromConnectionString(
-  process.env.IOTHUBCONNECTIONSTRING,
+  process.env.iothubconnectionstring,
 );
 
 const wss = new WebSocketServer({ port: 3001 });
 console.log("Web socket listening on port 3031");
 
 const webClientIotDevice = iotDevice.clientFromConnectionString(
-  process.env.IOTHUBWEBCLIENTCONNECTIONSTRING,
+  process.env.iothubwebclientconnectionstring,
 );
 console.log("Connected to iot hub");
 await webClientIotDevice.open();

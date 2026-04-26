@@ -17,7 +17,7 @@ const cosmoDBEndpoint = "https://2267339.documents.azure.com/";
 console.log("Connecting to cosmodb...");
 const client = new CosmosClient({
   endpoint: cosmoDBEndpoint,
-  key: process.env.COSMODBKEY,
+  key: process.env.cosmodbkey,
 });
 console.log("Connected to cosmo db");
 const databaseName = "tp_final_object_connecte_db";
