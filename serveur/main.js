@@ -25,15 +25,15 @@ webClientIotDevice.on("message", (msg) => {
   wss.clients.forEach((ws) => ws.send(data));
 });
 //CosmoDB
-const cosmoDBEndpoint = "https://2267339.documents.azure.com/";
+const cosmoDBEndpoint = "https://rasberrypicosmos.documents.azure.com:443/";
 console.log("Connecting to cosmodb...");
 const client = new CosmosClient({
   endpoint: cosmoDBEndpoint,
   key: process.env.cosmodbkey,
 });
 console.log("Connected to cosmo db");
-const databaseName = "tp_final_object_connecte_db";
-const inputContainerName = "inputs";
+const databaseName = "Tp2ObjetConnecte";
+const inputContainerName = "Inputs";
 const doorCommandsContainerName = "door-commands";
 const database = client.database(databaseName);
 const inputContainer = database.container(inputContainerName);
@@ -83,7 +83,12 @@ app.post("/cosmoDb/doorCommands/:id", async (req, res) => {
     const { command, isDoorDictated } = req.body;
 
     if (isDoorDictated) {
-      await makeTheDoorManual("1", "CHANGE_MODE");
+      const result = await makeTheDoorManual("1", "CHANGE_MODE");
+      if (!result) {
+        return res.status(404).json({ error: "Task not found" });
+      } else {
+        return res.json(result);
+      }
     }
 
     const { resource: existing } = await doorCommandsContainer
@@ -91,6 +96,7 @@ app.post("/cosmoDb/doorCommands/:id", async (req, res) => {
       .read();
 
     if (!existing) {
+      console.log("Item not found");
       return res.status(404).json({ error: "Task not found" });
     }
 
@@ -102,7 +108,7 @@ app.post("/cosmoDb/doorCommands/:id", async (req, res) => {
       updatedAt: new Date().toISOString(),
     };
 
-    console.log(updated);
+    console.log("Sending message to pi...");
     const { resource } = await doorCommandsContainer
       .item(id, command)
       .replace(updated);
@@ -116,10 +122,14 @@ app.post("/cosmoDb/doorCommands/:id", async (req, res) => {
 
 //cosmoDb method
 const makeTheDoorManual = async (id, command) => {
+  console.log(` id : ${id}, command : ${command}`);
   const { resource: existing } = await doorCommandsContainer
     .item(id, command)
     .read();
-
+  if (!existing) {
+    console.log("Item not found");
+    return null;
+  }
   const updateItem = {
     mode: "MANUAL",
   };
@@ -133,7 +143,7 @@ const makeTheDoorManual = async (id, command) => {
   const { resource } = await doorCommandsContainer
     .item(id, command)
     .replace(updated);
-  console.log(resource);
+  return resource;
 };
 
 const PORT = process.env.PORT || 3000;

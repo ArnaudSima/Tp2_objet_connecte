@@ -13,16 +13,11 @@ const iotHubClient = iotHub.Client.fromConnectionString(
   process.env.iothubconnectionstring,
 );
 
-console.log("Web socket listening on port 3000");
-
 export const webClientIotDevice = iotDevice.clientFromConnectionString(
   process.env.iothubwebclientconnectionstring,
 );
 console.log("Connected to iot hub");
 await webClientIotDevice.open();
-
-
-
 
 export function listDevices(callback) {
   iotHubRegistry.list(callback);
