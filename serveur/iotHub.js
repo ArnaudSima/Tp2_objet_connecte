@@ -21,7 +21,6 @@ export const webClientIotDevice = iotDevice.clientFromConnectionString(
 console.log("Connected to iot hub");
 await webClientIotDevice.open();
 
-console.log("Web socket listening on port 3000");
 
 
 

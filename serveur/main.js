@@ -16,8 +16,9 @@ app.use(cors()); // pour permettre les requêtes depuis ton front
 app.use(express.json());
 
 const server = createServer(app);
+console.log("Creating WebSocket server...");
 const wss = new WebSocketServer({ app });
-
+console.log("WebSocket server listening...");
 webClientIotDevice.on("message", (msg) => {
   const data = msg.data.toString();
   webClientIotDevice.complete(msg);
