@@ -1,9 +1,9 @@
 # .github/workflows/deploy.yml
 name: Deploy Backend
  
-# on:
-#   push:
-#     branches: [main]
+on:
+  push:
+    branches: [main]
 
 jobs:
   deploy:
@@ -34,7 +34,7 @@ jobs:
         run: | 
                az account show
                az account set --subscription ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-               az containerapp show --name medical-chat-app --resource-group MyResourceGroup
+               az containerapp show --name tp2objetconnecte --resource-group rasberryPI-IOT
     
       - name: Deploy sur Container Apps
         uses: azure/CLI@v1
