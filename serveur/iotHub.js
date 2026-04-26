@@ -4,6 +4,7 @@ import { Message } from "azure-iothub/dist/common-core/message.js";
 import { WebSocketServer } from "ws";
 
 console.log("Connecting to iot...");
+console.log("test")
 console.log(process.env.IOTHUBCONNECTIONSTRING);
 const iotHubRegistry = iotHub.Registry.fromConnectionString(
   process.env.IOTHUBCONNECTIONSTRING,
