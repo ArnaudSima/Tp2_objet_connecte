@@ -33,7 +33,7 @@ jobs:
       - name: Check Current account 
         run: | 
                az account show
-               az account set --subscription ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+               az account set --subscription ${{ secrets.AZURESUBSCRIPTIONID }}
                az containerapp show --name tp2objetconnecte --resource-group rasberryPI-IOT
     
       - name: Deploy sur Container Apps
