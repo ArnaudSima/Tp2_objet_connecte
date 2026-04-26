@@ -1,17 +1,28 @@
 import "dotenv/config";
+import { createServer } from "http";
 import express from "express";
 import { CosmosClient } from "@azure/cosmos";
 import cors from "cors";
 import {
+  webClientIotDevice,
   listDevices,
   registerDevice,
   sendMessage,
   deleteDevice,
 } from "./iotHub.js";
+import { WebSocketServer } from "ws";
 const app = express();
 app.use(cors()); // pour permettre les requêtes depuis ton front
 app.use(express.json());
 
+const server = createServer(app);
+const wss = new WebSocketServer({ app });
+
+webClientIotDevice.on("message", (msg) => {
+  const data = msg.data.toString();
+  webClientIotDevice.complete(msg);
+  wss.clients.forEach((ws) => ws.send(data));
+});
 //CosmoDB
 const cosmoDBEndpoint = "https://2267339.documents.azure.com/";
 console.log("Connecting to cosmodb...");
@@ -126,4 +137,6 @@ const makeTheDoorManual = async (id, command) => {
 
 const PORT = process.env.PORT || 3000;
 
-app.listen(PORT, () => console.log("Server running on http://localhost:3000"));
+server.listen(PORT, () =>
+  console.log("Server running on http://localhost:3000"),
+);

@@ -13,10 +13,9 @@ const iotHubClient = iotHub.Client.fromConnectionString(
   process.env.iothubconnectionstring,
 );
 
-const wss = new WebSocketServer({ port: 3000 });
 console.log("Web socket listening on port 3000");
 
-const webClientIotDevice = iotDevice.clientFromConnectionString(
+export const webClientIotDevice = iotDevice.clientFromConnectionString(
   process.env.iothubwebclientconnectionstring,
 );
 console.log("Connected to iot hub");
@@ -24,11 +23,7 @@ await webClientIotDevice.open();
 
 console.log("Web socket listening on port 3000");
 
-webClientIotDevice.on("message", (msg) => {
-  const data = msg.data.toString();
-  webClientIotDevice.complete(msg);
-  wss.clients.forEach((ws) => ws.send(data));
-});
+
 
 export function listDevices(callback) {
   iotHubRegistry.list(callback);
