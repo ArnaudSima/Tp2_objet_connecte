@@ -35,6 +35,7 @@ jobs:
         with:
           inlineScript: |
             az containerapp update \
-              --name tp2objetconnecte  \
-              --resource-group rasberryPI-IOT \
-              --image rasberryregistre.azurecr.io/serveur:latest
+               --name tp2objetconnecte \
+               --resource-group rasberryPI-IOT \
+               --image rasberryregistre.azurecr.io/serveur:latest \
+               --subscription 8f5fb4fe-5a66-4144-86bb-68e0b5f78548
