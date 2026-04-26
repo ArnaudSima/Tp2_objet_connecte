@@ -15,21 +15,21 @@ jobs:
       - name: Login Azure Container Registry
         uses: azure/docker-login@v1
         with:
-          login-server: monRegistry.azurecr.io
+          login-server: rasberryRegistre.azurecr.io
           username: ${{ secrets.REGISTRYUSERNAME }}
           password: ${{ secrets.REGISTRYPASSWORD }}
 
       - name: Build & Push
         run: |
-          docker build -f backend/Dockerfile ./backend \
-            -t monRegistry.azurecr.io/backend:latest
-          docker push monRegistry.azurecr.io/backend:latest
+          docker build -f serveur/Dockerfile ./serveur \
+            -t rasberryRegistre.azurecr.io/serveur:latest
+          docker push rasberryRegistre.azurecr.io/serveur:latest
 
-      - name: Deploy sur Container Apps
-        uses: azure/CLI@v1
-        with:
-          inlineScript: |
-            az containerapp update \
-              --name TP2_objet_connecte \
-              --resource-group monRG \
-              --image monRegistry.azurecr.io/backend:latest
+      # - name: Deploy sur Container Apps
+      #   uses: azure/CLI@v1
+      #   with:
+      #     inlineScript: |
+      #       az containerapp update \
+      #         --name TP2_objet_connecte \
+      #         --resource-group rasberryPI-IOT \
+      #         --image rasberryRegistre.azurecr.io/serveur:latest
