@@ -20,7 +20,7 @@ jobs:
           password: ${{ secrets.REGISTRYPASSWORD }}
 
       - name: Build & Push
-        run: |
+        run: | 
           docker build -f serveur/Dockerfile ./serveur \
             -t rasberryregistre.azurecr.io/serveur:latest
           docker push rasberryregistre.azurecr.io/serveur:latest
