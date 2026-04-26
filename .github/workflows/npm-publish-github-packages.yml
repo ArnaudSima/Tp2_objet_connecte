@@ -16,8 +16,8 @@ jobs:
         uses: azure/docker-login@v1
         with:
           login-server: monRegistry.azurecr.io
-          username: ${{ secrets.USERNAME }}
-          password: ${{ secrets.MOTDEPASSE }}
+          username: ${{ secrets.REGISTRYUSERNAME }}
+          password: ${{ secrets.REGISTRYPASSWORD }}
 
       - name: Build & Push
         run: |
