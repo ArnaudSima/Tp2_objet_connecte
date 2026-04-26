@@ -5,7 +5,8 @@ const doorDist = document.getElementById("door-dist");
 const manuelInput = document.getElementById("manuel-input");
 const rectangleGageUnit = document.createElement("div");
 rectangleGageUnit.className = "rectangle-gage-unit";
-const host = "http://localhost:3000";
+const host =
+  "https://tp2objetconnecte.internal.ambitiousplant-39792309.canadaeast.azurecontainerapps.io";
 const ws = new WebSocket("ws://localhost:3001");
 
 var temp = 0;
