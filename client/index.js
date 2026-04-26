@@ -64,10 +64,10 @@ const doorCommand = async (payload) => {
   }
 };
 const setModeAuto = () =>
-  doorCommand({ id: "1", command: "CHANGE_MODE", mode: "AUTOMATIC" });
+  doorCommand({ command: "CHANGE_MODE", mode: "AUTOMATIC" });
 
 const setModeManuel = () =>
-  doorCommand({ id: "1", command: "CHANGE_MODE", mode: "MANUAL" });
+  doorCommand({ command: "CHANGE_MODE", mode: "MANUAL" });
 
 const dictateDoorOpeningPercentage = (e) => {
   if (e.key === "Enter") {
