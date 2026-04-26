@@ -25,11 +25,11 @@ jobs:
             -t rasberryregistre.azurecr.io/serveur:latest
           docker push rasberryregistre.azurecr.io/serveur:latest
 
-      # - name: Deploy sur Container Apps
-      #   uses: azure/CLI@v1
-      #   with:
-      #     inlineScript: |
-      #       az containerapp update \
-      #         --name TP2_objet_connecte \
-      #         --resource-group rasberryPI-IOT \
-      #         --image rasberryRegistre.azurecr.io/serveur:latest
+      - name: Deploy sur Container Apps
+        uses: azure/CLI@v1
+        with:
+          inlineScript: |
+            az containerapp update \
+              --name tp2objectconnecte \
+              --resource-group rasberryPI-IOT \
+              --image rasberryRegistre.azurecr.io/serveur:latest
