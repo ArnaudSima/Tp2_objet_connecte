@@ -6,9 +6,10 @@ const manuelInput = document.getElementById("manuel-input");
 const rectangleGageUnit = document.createElement("div");
 rectangleGageUnit.className = "rectangle-gage-unit";
 const host =
-  "https://tp2objetconnecte.internal.ambitiousplant-39792309.canadaeast.azurecontainerapps.io";
-const ws = new WebSocket("ws://localhost:3001");
-
+  "https://tp2objetconnecte.ambitiousplant-39792309.canadaeast.azurecontainerapps.io";
+const ws = new WebSocket(
+  "wss://tp2objetconnecte.ambitiousplant-39792309.canadaeast.azurecontainerapps.io",
+);
 var temp = 0;
 var lum = 0;
 var dist = 0;
