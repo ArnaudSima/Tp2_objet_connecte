@@ -16,8 +16,8 @@ jobs:
         uses: azure/docker-login@v1
         with:
           login-server: monRegistry.azurecr.io
-          username: ${{ TpFinaleObjectConnecte\$TpFinaleObjectConnecte }}
-          password: ${{ leJzFZtcpPN0mTJ3P5xPnMEPcwPiye7jl7ffixrgpWfbfu9l58yQvLQ4pqs5 }}
+          username: ${{ SECRET.USERNAME }}
+          password: ${{ SECRET.MOTDEPASSE }}
 
       - name: Build & Push
         run: |
