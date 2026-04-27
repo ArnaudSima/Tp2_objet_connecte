@@ -16,9 +16,9 @@ const doorOpeningInPercentage = document.getElementById(
 );
 rectangleGageUnit.className = "rectangle-gage-unit";
 const host =
-  "http://localhost:3000";
+  "https://tp2objetconnecte.ambitiousplant-39792309.canadaeast.azurecontainerapps.io";
 const ws = new WebSocket(
-  "http://localhost:3000",
+  "https://tp2objetconnecte.ambitiousplant-39792309.canadaeast.azurecontainerapps.io",
 );
 
 setInterval(() => {
