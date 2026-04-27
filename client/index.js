@@ -31,9 +31,6 @@ const doorCommand = async (payload) => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
     });
-    if (!responseCosmodb.ok) {
-      console.error(responseCosmodb.status);
-    }
 
     const responseIotHub = await fetch(
       `${host}/iothub/sendDoorCommand/rasberrypi-salon`,
@@ -43,11 +40,27 @@ const doorCommand = async (payload) => {
         body: JSON.stringify(payload),
       },
     );
-    if (!responseIotHub.ok) {
-      console.error(responseIotHub.status);
+
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+
+    let messageFeedBack = ``;
+    if (!responseCosmodb.ok || !responseIotHub.ok) {
+      if (!responseCosmodb.ok) {
+        console.error(responseCosmodb.status);
+        messageFeedBack += `Erreur lors de l'envoie à : cosmoDb`;
+      }
+      if (!responseIotHub.ok) {
+        console.error(responseIotHub.status);
+        messageFeedBack += `, IotHub`;
+      }
+    } else {
+      messageFeedBack += "Information envoyée avec succès!";
     }
+
+    window.alert(messageFeedBack);
   } catch (error) {
     console.error(error);
+    window.alert("Erreur inatendue!");
   }
 };
 let isAutomatic = false;
