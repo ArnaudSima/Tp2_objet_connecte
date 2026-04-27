@@ -21,20 +21,10 @@ const ws = new WebSocket(
   "http://localhost:3000",
 );
 
-setInterval(() => {
-  if (ws.readyState === 1) {
-    ws.send(JSON.stringify({ type: "ping" }));
-  }
-}, 30000);
 
-ws.onclose = () => {
-  console.log("WebSocket deconnecte, rechargement de la page...");
-  setTimeout(() => location.reload(), 3000);
-};
 
-ws.onerror = (erreur) => {
-  console.error("Erreur WebSocket :", erreur);
-};
+
+
 
 var temp = 0;
 var lum = 0;
