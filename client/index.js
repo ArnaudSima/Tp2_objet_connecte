@@ -7,7 +7,11 @@ const rectangleGageUnit = document.createElement("div");
 const changeModeButton = document.getElementById("mode-btn");
 const automaticDoorOpening = document.getElementById("automatic-door-opening");
 const alertMessage = document.getElementById("alert-message");
+const motorSpeed = document.getElementById("motor-speed");
 
+const doorOpeningInPercentage = document.getElementById(
+  "door-opening-in-percentage",
+);
 rectangleGageUnit.className = "rectangle-gage-unit";
 const host =
   "https://tp2objetconnecte.ambitiousplant-39792309.canadaeast.azurecontainerapps.io";
@@ -18,9 +22,19 @@ var temp = 0;
 var lum = 0;
 var dist = 0;
 
-const handleRectangleGage = (rectangle, rectangleGageUnit) => {
-  for (let index = 0; index < 2; index++) {
-    rectangle.appendChild(rectangleGageUnit.cloneNode(true));
+const handleRectangleGage = (percentage) => {
+  const rectangle = document.getElementById("rectangle-container");
+  rectangle.innerHTML = "";
+
+  const filled = Math.round((parseInt(percentage) / 100) * 5);
+
+  for (let index = 0; index < 5; index++) {
+    const unit = document.createElement("div");
+    unit.className = "rectangle-gage-unit";
+    if (index < filled) {
+      unit.classList.add("filled");
+    }
+    rectangle.appendChild(unit);
   }
 };
 
@@ -99,15 +113,19 @@ const dictateDoorOpeningPercentage = (e) => {
   }
 };
 
-handleRectangleGage(rectangle, rectangleGageUnit);
+handleRectangleGage(automaticDoorOpening.textContent);
 
 ws.onmessage = (event) => {
+  window.alert("Data received from the pi!");
   const inputs = JSON.parse(event.data);
   changeModeButton.textContent = inputs.doorMode;
   displayedTemp.textContent = inputs.temp;
   displayedLum.textContent = inputs.lum;
   doorDist.textContent = inputs.dist;
-  automaticDoorOpening.textContent = inputs.doorOpeningPercentage;
+  automaticDoorOpening.textContent = inputs.automaticDoorOpeningPercentage;
+  doorOpeningInPercentage.textContent = inputs.doorOpeningPercentage;
+  motorSpeed.textContent = inputs.motorSpeed ?? 0;
+  handleRectangleGage(inputs.doorOpeningPercentage);
   // Affiche l'alerte si le Pi en envoie une, sinon cache
   if (inputs.alert) {
     alertMessage.textContent = inputs.alert;
