@@ -33,7 +33,7 @@
  
           <div class="text-inline">
             <h3 style="text-decoration: underline; text-decoration-thickness: 4px; margin-right: 5px;">Contrôle :</h3>
-            <button id="mode-btn" onclick="changeMode()">Manuel</button>
+            <button id="mode-content" onclick="changeMode()">Manuel</button>
           </div>
           <div class="door-controls">
             <div class="text-inline">
@@ -47,7 +47,7 @@
  
           <div class="text-inline" style="margin-top: 10px;">
             <p>Moteur :</p>
-            <p>En marche | En arrêt</p>
+            <p id="motor-state">A l'arrêt </p>
           </div>
           <div class="text-inline" style="margin-top: 5px;">
             <p>Direction :</p>
@@ -59,7 +59,7 @@
         <div class="right-side">
           <div class="text-inline">
             <p>Mode :</p>
-            <p>Manuelle | Automatique</p>
+            <p id="mode-text">Manuel</p>
           </div>
  
           <div
@@ -81,7 +81,7 @@
             </div>
             <div style="margin-top: 10px;" class="text-inline">
               <p>Vitesse :</p>
-              <p id="motor-speed">20</p>
+              <p id="motor-speed" style="margin-right: 5px; margin-left: 5px;">0</p>
               <p>tour/min</p>
             </div>
           </div>

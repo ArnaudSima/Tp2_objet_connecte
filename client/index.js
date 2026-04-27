@@ -4,19 +4,21 @@ const displayedLum = document.getElementById("displayed-lum");
 const doorDist = document.getElementById("door-dist");
 const manuelInput = document.getElementById("manuel-input");
 const rectangleGageUnit = document.createElement("div");
-const changeModeButton = document.getElementById("mode-btn");
+const ModeContent = document.getElementById("mode-content");
+const ModeText = document.getElementById("mode-text");
+
 const automaticDoorOpening = document.getElementById("automatic-door-opening");
 const alertMessage = document.getElementById("alert-message");
 const motorSpeed = document.getElementById("motor-speed");
-
+const motorState = document.getElementById("motor-state");
 const doorOpeningInPercentage = document.getElementById(
   "door-opening-in-percentage",
 );
 rectangleGageUnit.className = "rectangle-gage-unit";
 const host =
-  "https://tp2objetconnecte.ambitiousplant-39792309.canadaeast.azurecontainerapps.io";
+  "http://localhost:3000";
 const ws = new WebSocket(
-  "wss://tp2objetconnecte.ambitiousplant-39792309.canadaeast.azurecontainerapps.io",
+  "http://localhost:3000",
 );
 
 setInterval(() => {
@@ -98,11 +100,13 @@ let isAutomatic = false;
 const changeMode = () => {
   if (isAutomatic) {
     isAutomatic = false;
-    changeModeButton.textContent = "Manuel";
+    ModeText.textContent = "Manuel"
+    ModeContent.textContent = "Manuel";
     doorCommand({ command: "CHANGE_MODE", mode: "MANUAL" });
   } else {
     isAutomatic = true;
-    changeModeButton.textContent = "Automatique";
+    ModeText.textContent = "Automatique";
+    ModeContent.textContent = "Automatique";
     doorCommand({ command: "CHANGE_MODE", mode: "AUTOMATIC" });
   }
 };
@@ -134,13 +138,15 @@ handleRectangleGage(automaticDoorOpening.textContent);
 ws.onmessage = (event) => {
   window.alert("Data received from the pi!");
   const inputs = JSON.parse(event.data);
-  changeModeButton.textContent = inputs.doorMode;
+  ModeContent.textContent = inputs.doorMode;
+  ModeText.textContent = inputs.doorMode;
   displayedTemp.textContent = inputs.temp;
   displayedLum.textContent = inputs.lum;
   doorDist.textContent = inputs.dist;
   automaticDoorOpening.textContent = inputs.automaticDoorOpeningPercentage;
   doorOpeningInPercentage.textContent = inputs.doorOpeningPercentage;
   motorSpeed.textContent = inputs.motorSpeed ?? 0;
+  motorState.textContent = inputs.motorState ?? "À l'arrêt"
   handleRectangleGage(inputs.doorOpeningPercentage);
   // Affiche l'alerte si le Pi en envoie une, sinon cache
   if (inputs.alert) {
