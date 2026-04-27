@@ -71,12 +71,18 @@ const setModeAuto = () =>
 const setModeManuel = () =>
   doorCommand({ command: "CHANGE_MODE", mode: "MANUAL" });
 
+const openTheDoor = () => {
+  doorCommand({ command: "OPEN_DOOR" });
+};
+
+const closeTheDoor = () => {
+  doorCommand({ command: "CLOSE_DOOR" });
+};
 const dictateDoorOpeningPercentage = (e) => {
   if (e.key === "Enter") {
     e.preventDefault();
     console.log("Enter key was pressed!");
     doorCommand({
-      id: "3",
       command: "DICTATE_DOOR_OPENING_PERCENTAGE",
       isDoorDictated: true,
       percentage: manuelInput.value,

@@ -93,75 +93,22 @@ app.get("/cosmoDb/data", async (req, res) => {
   }
 });
 
-app.post("/cosmoDb/doorCommands/:id", async (req, res) => {
+app.post("/cosmoDb/doorCommands", async (req, res) => {
   try {
-    const { id } = req.params;
     console.log(req.body);
-    const { command, isDoorDictated } = req.body;
-
-    if (isDoorDictated) {
-      const result = await makeTheDoorManual("1", "CHANGE_MODE");
-      if (!result) {
-        return res.status(404).json({ error: "Task not found" });
-      } else {
-        return res.json(result);
-      }
-    }
-
-    const { resource: existing } = await doorCommandsContainer
-      .item(id, command)
-      .read();
-
-    if (!existing) {
-      console.log("Item not found");
-      return res.status(404).json({ error: "Task not found" });
-    }
-
-    const updated = {
-      ...existing,
-      ...req.body,
-      id,
-      command,
-      updatedAt: new Date().toISOString(),
+    const doorCommand = req.body;
+    const command = {
+      id: Date.now().toString(),
+      doorCommand,
+      createdAt: new Date().toISOString(),
     };
-
-    console.log("Sending message to pi...");
-    const { resource } = await doorCommandsContainer
-      .item(id, command)
-      .replace(updated);
-
+    const { resource } = await doorCommandsContainer.items.create(command);
     return res.json(resource);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Erreur lors de l'insertion" });
   }
 });
-
-//cosmoDb method
-const makeTheDoorManual = async (id, command) => {
-  console.log(` id : ${id}, command : ${command}`);
-  const { resource: existing } = await doorCommandsContainer
-    .item(id, command)
-    .read();
-  if (!existing) {
-    console.log("Item not found");
-    return null;
-  }
-  const updateItem = {
-    mode: "MANUAL",
-  };
-  const updated = {
-    ...existing,
-    ...updateItem,
-    id,
-    command,
-    updatedAt: new Date().toISOString(),
-  };
-  const { resource } = await doorCommandsContainer
-    .item(id, command)
-    .replace(updated);
-  return resource;
-};
 
 const PORT = process.env.PORT || 3000;
 
