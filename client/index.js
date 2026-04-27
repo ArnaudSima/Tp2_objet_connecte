@@ -38,10 +38,6 @@ var temp = 0;
 var lum = 0;
 var dist = 0;
 
-var temp = 0;
-var lum = 0;
-var dist = 0;
-
 const handleRectangleGage = (percentage) => {
   const rectangle = document.getElementById("rectangle-container");
   rectangle.innerHTML = "";
