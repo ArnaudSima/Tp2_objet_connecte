@@ -18,6 +18,26 @@ const host =
 const ws = new WebSocket(
   "wss://tp2objetconnecte.ambitiousplant-39792309.canadaeast.azurecontainerapps.io",
 );
+
+setInterval(() => {
+  if (ws.readyState === 1) {
+    ws.send(JSON.stringify({ type: "ping" }));
+  }
+}, 30000);
+
+ws.onclose = () => {
+  console.log("WebSocket deconnecte, rechargement de la page...");
+  setTimeout(() => location.reload(), 3000);
+};
+
+ws.onerror = (erreur) => {
+  console.error("Erreur WebSocket :", erreur);
+};
+
+var temp = 0;
+var lum = 0;
+var dist = 0;
+
 var temp = 0;
 var lum = 0;
 var dist = 0;
