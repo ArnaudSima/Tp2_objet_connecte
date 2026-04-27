@@ -30,6 +30,7 @@ webClientIotDevice.on("message", async (msg) => {
       temp: data.temp,
       lum: data.lum,
       dist: data.dist,
+      doorOpeningPercentage: data.doorOpeningPercentage,
       createdAt: new Date().toISOString(),
     };
 

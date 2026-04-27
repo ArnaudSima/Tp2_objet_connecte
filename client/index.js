@@ -4,6 +4,10 @@ const displayedLum = document.getElementById("displayed-lum");
 const doorDist = document.getElementById("door-dist");
 const manuelInput = document.getElementById("manuel-input");
 const rectangleGageUnit = document.createElement("div");
+const changeModeButton = document.getElementById("mode-btn");
+const automaticDoorOpening = document.getElementById("automatic-door-opening");
+const alertMessage = document.getElementById("alert-message");
+
 rectangleGageUnit.className = "rectangle-gage-unit";
 const host =
   "https://tp2objetconnecte.ambitiousplant-39792309.canadaeast.azurecontainerapps.io";
@@ -19,22 +23,6 @@ const handleRectangleGage = (rectangle, rectangleGageUnit) => {
     rectangle.appendChild(rectangleGageUnit.cloneNode(true));
   }
 };
-
-// const fetchData = async () => {
-//   const iotHubResponse = await fetch(`${host}/api/data`, { method: "GET" });
-
-//   const cosmoDBResponse = await fetch(`${host}/api/data`, { method: "GET" });
-//   if (!cosmoDBResponse.ok) {
-//     console.error(cosmoDBResponse.status);
-//     return;
-//   }
-
-//   const result = await cosmoDBResponse.json();
-//   const inputs = result[0]?.inputs;
-//   displayedTemp.textContent = inputs.celsius;
-//   displayedLum.textContent = inputs.lumens;
-//   doorDist.textContent = inputs.distance;
-// };
 
 const doorCommand = async (payload) => {
   try {
@@ -62,8 +50,19 @@ const doorCommand = async (payload) => {
     console.error(error);
   }
 };
-const setModeAuto = () =>
-  doorCommand({ command: "CHANGE_MODE", mode: "AUTOMATIC" });
+let isAutomatic = false;
+
+const changeMode = () => {
+  if (isAutomatic) {
+    isAutomatic = false;
+    changeModeButton.textContent = "Manuel";
+    doorCommand({ command: "CHANGE_MODE", mode: "MANUAL" });
+  } else {
+    isAutomatic = true;
+    changeModeButton.textContent = "Automatique";
+    doorCommand({ command: "CHANGE_MODE", mode: "AUTOMATIC" });
+  }
+};
 
 const setModeManuel = () =>
   doorCommand({ command: "CHANGE_MODE", mode: "MANUAL" });
@@ -91,7 +90,16 @@ handleRectangleGage(rectangle, rectangleGageUnit);
 
 ws.onmessage = (event) => {
   const inputs = JSON.parse(event.data);
-  displayedTemp.textContent = inputs.celsius;
-  displayedLum.textContent = inputs.lumens;
-  doorDist.textContent = inputs.distance;
+  changeModeButton.textContent = inputs.doorMode;
+  displayedTemp.textContent = inputs.temp;
+  displayedLum.textContent = inputs.lum;
+  doorDist.textContent = inputs.dist;
+  automaticDoorOpening.textContent = inputs.doorOpeningPercentage;
+  // Affiche l'alerte si le Pi en envoie une, sinon cache
+  if (inputs.alert) {
+    alertMessage.textContent = inputs.alert;
+    alertMessage.style.display = "block";
+  } else {
+    alertMessage.style.display = "none";
+  }
 };

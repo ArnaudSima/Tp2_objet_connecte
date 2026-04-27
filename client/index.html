@@ -27,13 +27,13 @@
           </div>
           <div class="text-inline">
             <p>Ouverture de la porte automatique :</p>
-            <p id="door-dist">20</p>
+            <p id="automatic-door-opening">20</p>
             <p>%</p>
           </div>
  
           <div class="text-inline">
             <h3 style="text-decoration: underline; text-decoration-thickness: 4px; margin-right: 5px;">Contrôle :</h3>
-            <button onclick="setModeAuto()">Automatique</button>
+            <button id="mode-btn" onclick="changeMode()">Manuel</button>
           </div>
           <div class="door-controls">
             <div class="text-inline">
@@ -76,7 +76,7 @@
           <div style="margin-top: 19px;">
             <div class="text-inline">
               <p>Détecteur de distance :</p>
-              <p>22</p>
+              <p id="door-dist">22</p>
               <p>cm</p>
             </div>
             <div style="margin-top: 10px;" class="text-inline">
@@ -88,8 +88,10 @@
  
         </div>
       </div>
+      <p><strong>Alerte :</strong> <span id="alert-message" style="color: red; display: none;"></span></p>
     </div>
   </div>
+
   </div>
 </body>
  
