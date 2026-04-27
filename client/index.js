@@ -38,14 +38,11 @@ const handleRectangleGage = (rectangle, rectangleGageUnit) => {
 
 const doorCommand = async (payload) => {
   try {
-    const responseCosmodb = await fetch(
-      `${host}/cosmoDb/doorCommands/${payload.id}`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      },
-    );
+    const responseCosmodb = await fetch(`${host}/cosmoDb/doorCommands`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
     if (!responseCosmodb.ok) {
       console.error(responseCosmodb.status);
     }
