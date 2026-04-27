@@ -18,12 +18,28 @@ app.use(express.json());
 const server = createServer(app);
 console.log("Creating WebSocket server...");
 const wss = new WebSocketServer({ server });
+
 console.log("WebSocket server listening...");
-webClientIotDevice.on("message", (msg) => {
-  const data = msg.data.toString();
-  webClientIotDevice.complete(msg);
-  wss.clients.forEach((ws) => ws.send(data));
+webClientIotDevice.on("message", async (msg) => {
+  try {
+    const data = JSON.parse(msg.data.toString());
+    webClientIotDevice.complete(msg);
+
+    const item = {
+      id: Date.now().toString(),
+      temp: data.temp,
+      lum: data.lum,
+      dist: data.dist,
+      createdAt: new Date().toISOString(),
+    };
+
+    await inputContainer.items.create(item);
+    wss.clients.forEach((ws) => ws.send(JSON.stringify(data)));
+  } catch (err) {
+    console.error(err);
+  }
 });
+
 //CosmoDB
 const cosmoDBEndpoint = "https://rasberrypicosmos.documents.azure.com:443/";
 console.log("Connecting to cosmodb...");
@@ -33,7 +49,7 @@ const client = new CosmosClient({
 });
 console.log("Connected to cosmo db");
 const databaseName = "Tp2ObjetConnecte";
-const inputContainerName = "Inputs";
+const inputContainerName = "inputs";
 const doorCommandsContainerName = "door-commands";
 const database = client.database(databaseName);
 const inputContainer = database.container(inputContainerName);
@@ -63,6 +79,7 @@ app.put("/iotHub/sendDoorCommand/:deviceId", (req, res) => {
 
   res.status(200).json({ message: "message sent" });
 });
+
 //Cosmodb
 app.get("/cosmoDb/data", async (req, res) => {
   try {
