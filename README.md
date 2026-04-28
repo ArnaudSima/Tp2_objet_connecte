@@ -27,8 +27,8 @@ Prérequis :
 Exécution du code Raspberry Pi :
 ------------
 1.  Ouvrir un terminal sur le Raspberry Pi.
-2.  Se placer dans le dossier du projet :  cd ~/iot_projet
-3.  Lancer le script principal : ./lancer.sh
+2.  Se placer dans le dossier du projet :  ``cd ~/iot_projet``
+3.  Lancer le script principal : ``./lancer.sh``
 4.  Vérifier les messages dans le terminal pour confirmer que :
    - Les capteurs sont détectés
    - Le moteur stepper fonctionne et est allumé
@@ -39,7 +39,7 @@ Exécution du code Raspberry Pi :
 Accès à l'interface web :
 ------------
 - Ouvrir un navigateur web et accèder à l'URL fournie pour consulter les données envoyées Pi:
-  https://witty-ocean-0a9c5f00f.7.azurestaticapps.net/
+  ``https://witty-ocean-0a9c5f00f.7.azurestaticapps.net/``
 
 
 Auteur :
