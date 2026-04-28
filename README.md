@@ -45,4 +45,4 @@ Accès à l'interface web :
 Auteur :
 ------------
 - Arnaud Simard-Desmeule / Cedryk Leblanc
-- date de derniere version : 4 avril 2026
+- Date de derniere version : 4 avril 2026
